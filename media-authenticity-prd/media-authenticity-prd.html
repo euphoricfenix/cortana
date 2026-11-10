@@ -1,0 +1,592 @@
+<title>Media Authenticity Platform — PRD</title>
+<style>
+  :root{
+    --paper: #f2f3f0;
+    --paper-raised: #ffffff;
+    --ink: #1b1f1c;
+    --ink-muted: #5b615c;
+    --line: #d8dad3;
+    --accent: #a8481f;
+    --accent-soft: #a8481f14;
+    --verified: #3d6b5c;
+    --verified-soft: #3d6b5c14;
+    --flag: #92661f;
+    --flag-soft: #b08a2e1c;
+    --shadow: 0 1px 2px rgba(27,31,28,0.06), 0 8px 24px rgba(27,31,28,0.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --paper: #14160f14;
+      --paper: #15170f;
+      --paper: #141613;
+      --paper-raised: #1b1e1a;
+      --ink: #e8e9e4;
+      --ink-muted: #9aa19a;
+      --line: #2c2f29;
+      --accent: #de8557;
+      --accent-soft: #de85571c;
+      --verified: #7fb39f;
+      --verified-soft: #7fb39f1c;
+      --flag: #d9b169;
+      --flag-soft: #d9b1691f;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper: #141613;
+    --paper-raised: #1b1e1a;
+    --ink: #e8e9e4;
+    --ink-muted: #9aa19a;
+    --line: #2c2f29;
+    --accent: #de8557;
+    --accent-soft: #de85571c;
+    --verified: #7fb39f;
+    --verified-soft: #7fb39f1c;
+    --flag: #d9b169;
+    --flag-soft: #d9b1691f;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  :root[data-theme="light"]{
+    --paper: #f2f3f0;
+    --paper-raised: #ffffff;
+    --ink: #1b1f1c;
+    --ink-muted: #5b615c;
+    --line: #d8dad3;
+    --accent: #a8481f;
+    --accent-soft: #a8481f14;
+    --verified: #3d6b5c;
+    --verified-soft: #3d6b5c14;
+    --flag: #92661f;
+    --flag-soft: #b08a2e1c;
+    --shadow: 0 1px 2px rgba(27,31,28,0.06), 0 8px 24px rgba(27,31,28,0.05);
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family: Charter, "Iowan Old Style", "Palatino Linotype", Georgia, "Noto Serif", serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{
+    font-family: ui-monospace, "SF Mono", "SFMono-Regular", Menlo, Consolas, "Roboto Mono", monospace;
+  }
+  ::selection{ background:var(--accent-soft); }
+  a{ color:var(--accent); }
+  a:focus-visible, button:focus-visible, summary:focus-visible{
+    outline: 2px solid var(--accent); outline-offset: 2px;
+  }
+
+  .page{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 3.5rem 1.5rem 6rem;
+    display:grid;
+    grid-template-columns: 232px minmax(0,760px);
+    gap: 3.5rem;
+    align-items:start;
+  }
+  @media (max-width: 900px){
+    .page{ grid-template-columns: 1fr; gap: 1.75rem; padding: 2rem 1.25rem 4rem; }
+  }
+
+  /* ---- Sidebar / index ---- */
+  nav.index{
+    position: sticky;
+    top: 2.5rem;
+    font-family: ui-monospace, "SF Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+    font-size: 0.75rem;
+  }
+  @media (max-width: 900px){
+    nav.index{
+      position: static;
+      overflow-x: auto;
+      white-space: nowrap;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--line);
+      -webkit-overflow-scrolling: touch;
+    }
+    nav.index ol{ display:flex; gap:1.1rem; }
+    nav.index li{ margin:0 !important; }
+  }
+  nav.index .tag{
+    display:block;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-muted);
+    margin-bottom:0.9rem;
+  }
+  nav.index ol{ list-style:none; margin:0; padding:0; counter-reset:idx; }
+  nav.index li{ margin-bottom:0.55rem; }
+  nav.index a{
+    color:var(--ink-muted);
+    text-decoration:none;
+    border-left: 2px solid transparent;
+    padding-left:0.6rem;
+    display:inline-block;
+  }
+  nav.index a:hover{ color:var(--ink); border-left-color:var(--accent); }
+
+  /* ---- Cover ---- */
+  header.cover{ margin-bottom: 3rem; }
+  .doc-eyebrow{
+    font-family: ui-monospace, "SF Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+    font-size:0.75rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:0 0 0.9rem;
+  }
+  h1{
+    font-family: ui-monospace, "SF Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+    font-size: clamp(1.7rem, 3.4vw, 2.35rem);
+    font-weight:600;
+    letter-spacing:-0.01em;
+    line-height:1.18;
+    text-wrap:balance;
+    margin: 0 0 0.85rem;
+  }
+  .dek{
+    font-size:1.1rem;
+    color:var(--ink-muted);
+    max-width:60ch;
+    margin:0 0 1.6rem;
+  }
+  table.docmeta{
+    font-family: ui-monospace, "SF Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+    font-size:0.78rem;
+    border-collapse:collapse;
+    color:var(--ink-muted);
+  }
+  table.docmeta td{ padding:0.15rem 1.4rem 0.15rem 0; white-space:nowrap; }
+  table.docmeta td.k{ text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-muted); }
+  table.docmeta td.v{ color:var(--ink); }
+
+  /* ---- Section rhythm ---- */
+  section{ margin: 3.4rem 0; scroll-margin-top: 2rem; }
+  section > h2{
+    font-family: ui-monospace, "SF Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+    font-size:0.8rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--ink);
+    display:flex;
+    align-items:center;
+    gap:0.75rem;
+    margin:0 0 1.3rem;
+    padding-bottom:0.7rem;
+    border-bottom:1px solid var(--line);
+  }
+  section > h2::before{
+    content:"";
+    width:0.55rem; height:0.55rem;
+    background:var(--accent);
+    display:inline-block;
+    flex:none;
+  }
+  h3{
+    font-family: ui-monospace, "SF Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+    font-size:0.95rem;
+    font-weight:600;
+    margin: 1.7rem 0 0.6rem;
+  }
+  p{ margin:0 0 1rem; max-width:68ch; }
+  ul, ol{ padding-left:1.25rem; }
+  li{ margin-bottom:0.45rem; max-width:64ch; }
+
+  /* ---- Phase card ---- */
+  .phase{
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    box-shadow:var(--shadow);
+    padding: 1.9rem 1.9rem 1.6rem;
+    margin: 1.6rem 0 2.6rem;
+  }
+  @media (max-width:560px){ .phase{ padding:1.4rem 1.15rem 1.2rem; } }
+  .phase-head{
+    display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap;
+    margin-bottom:0.3rem;
+  }
+  .phase-head h3{ margin:0; font-size:1.15rem; }
+  .status{
+    font-family: ui-monospace, "SF Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+    font-size:0.68rem;
+    letter-spacing:0.09em;
+    text-transform:uppercase;
+    padding:0.2rem 0.55rem;
+    border:1px solid currentColor;
+  }
+  .status.now{ color:var(--accent); }
+  .status.next{ color:var(--flag); }
+  .status.then{ color:var(--ink-muted); }
+  .status.funded{ color:var(--verified); }
+  .status.ongoing{ color:var(--ink-muted); }
+
+  .objective{ font-style:italic; color:var(--ink-muted); margin:0.7rem 0 1.2rem; max-width:62ch; }
+
+  .scope-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.3rem; margin:1.1rem 0 1.5rem; }
+  @media (max-width:640px){ .scope-grid{ grid-template-columns:1fr; } }
+  .scope-col .lbl{ font-family:ui-monospace,monospace; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:0.5rem; }
+  .scope-col.in .lbl{ color:var(--verified); }
+  .scope-col.out .lbl{ color:var(--ink-muted); }
+  .scope-col ul{ margin:0; padding-left:1.1rem; font-size:0.93rem; }
+  .scope-col.out li{ color:var(--ink-muted); }
+
+  table.req{
+    width:100%; border-collapse:collapse; font-size:0.88rem; margin:0.6rem 0 1.3rem;
+  }
+  table.req th{
+    text-align:left; font-family:ui-monospace,monospace; font-size:0.68rem; letter-spacing:0.07em;
+    text-transform:uppercase; color:var(--ink-muted); font-weight:500;
+    border-bottom:1px solid var(--line); padding:0.4rem 0.7rem 0.4rem 0;
+  }
+  table.req td{ padding:0.55rem 0.7rem 0.55rem 0; border-bottom:1px solid var(--line); vertical-align:top; }
+  table.req td.id{ font-family:ui-monospace,monospace; font-size:0.78rem; color:var(--accent); white-space:nowrap; }
+  table.req tr:last-child td{ border-bottom:none; }
+  .req-wrap{ overflow-x:auto; }
+
+  .meta-row{ display:grid; grid-template-columns: 1fr 1fr; gap:1.3rem; margin-top:1.4rem; }
+  @media (max-width:640px){ .meta-row{ grid-template-columns:1fr; } }
+  .meta-block .lbl{ font-family:ui-monospace,monospace; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-muted); margin-bottom:0.4rem; }
+  .meta-block p, .meta-block ul{ font-size:0.9rem; margin:0; }
+
+  .risk-note{
+    background:var(--flag-soft);
+    border-left:3px solid var(--flag);
+    padding:0.75rem 0.95rem;
+    font-size:0.88rem;
+    margin:1rem 0;
+  }
+  .risk-note .lbl{ font-family:ui-monospace,monospace; font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--flag); display:block; margin-bottom:0.3rem; }
+
+  /* ---- generic tables ---- */
+  table.data{ width:100%; border-collapse:collapse; font-size:0.9rem; }
+  table.data th{
+    text-align:left; font-family:ui-monospace,monospace; font-size:0.7rem; letter-spacing:0.06em;
+    text-transform:uppercase; color:var(--ink-muted); font-weight:500;
+    border-bottom:1px solid var(--ink); padding:0.5rem 0.9rem 0.5rem 0;
+  }
+  table.data td{ padding:0.65rem 0.9rem 0.65rem 0; border-bottom:1px solid var(--line); vertical-align:top; }
+  table.data tr:last-child td{ border-bottom:none; }
+  table.data .num{ font-family:ui-monospace,monospace; font-variant-numeric:tabular-nums; }
+
+  /* ---- case list ---- */
+  .cases{ list-style:none; padding:0; margin:0; }
+  .cases li{
+    display:grid; grid-template-columns: 108px 1fr; gap:1.1rem;
+    padding:0.9rem 0; border-bottom:1px solid var(--line); max-width:none;
+  }
+  .cases li:first-child{ border-top:1px solid var(--line); }
+  .cases .where{ font-family:ui-monospace,monospace; font-size:0.78rem; color:var(--ink-muted); padding-top:0.15rem; }
+  .cases .what b{ color:var(--ink); }
+  .cases .what{ font-size:0.94rem; }
+  @media (max-width:560px){ .cases li{ grid-template-columns:1fr; gap:0.25rem; } }
+
+  .pill-row{ display:flex; flex-wrap:wrap; gap:0.5rem; margin:0.8rem 0 1.2rem; }
+  .pill{
+    font-family:ui-monospace,monospace; font-size:0.72rem; letter-spacing:0.04em;
+    border:1px solid var(--line); padding:0.28rem 0.65rem; color:var(--ink-muted);
+  }
+
+  dl.gloss{ margin:0; }
+  dl.gloss div{ display:grid; grid-template-columns:140px 1fr; gap:1rem; padding:0.7rem 0; border-bottom:1px solid var(--line); }
+  dl.gloss dt{ font-family:ui-monospace,monospace; font-size:0.82rem; color:var(--accent); }
+  dl.gloss dd{ margin:0; font-size:0.92rem; max-width:56ch; }
+  @media (max-width:560px){ dl.gloss div{ grid-template-columns:1fr; gap:0.2rem; } }
+
+  footer{
+    margin-top:4rem; padding-top:1.5rem; border-top:1px solid var(--line);
+    font-family:ui-monospace,monospace; font-size:0.72rem; color:var(--ink-muted);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem;
+  }
+
+  @media (prefers-reduced-motion:no-preference){
+    a, .status{ transition: color 0.15s ease, border-color 0.15s ease; }
+  }
+</style>
+
+<div class="page">
+
+  <nav class="index" aria-label="Document index">
+    <span class="tag">In this document</span>
+    <ol>
+      <li><a href="#summary">Executive summary</a></li>
+      <li><a href="#problem">Problem statement</a></li>
+      <li><a href="#market">Market landscape</a></li>
+      <li><a href="#product">Product overview</a></li>
+      <li><a href="#sequencing">GTM sequencing</a></li>
+      <li><a href="#roadmap">Phased roadmap</a></li>
+      <li><a href="#cross-phase">Cross-phase requirements</a></li>
+      <li><a href="#risks">Risk register</a></li>
+      <li><a href="#metrics">Metrics &amp; KPIs</a></li>
+      <li><a href="#open-questions">Open questions</a></li>
+      <li><a href="#glossary">Glossary</a></li>
+      <li><a href="#appendix">Technical appendix</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <header class="cover">
+      <p class="doc-eyebrow">Product Requirements Document · Draft</p>
+      <h1>Media Authenticity Verification Platform</h1>
+      <p class="dek">Source verification and AI-manipulation signal detection for image, video, and text claims — phased from a bootstrapped MVP to funded Part&nbsp;1 R&amp;D.</p>
+      <table class="docmeta">
+        <tr><td class="k">Version</td><td class="v">0.1</td><td class="k">Date</td><td class="v">2026-07-31</td></tr>
+        <tr><td class="k">Status</td><td class="v">Draft — pre-MVP scoping</td><td class="k">Owner</td><td class="v">Founder</td></tr>
+      </table>
+    </header>
+
+    <section id="summary">
+      <h2>Executive summary</h2>
+      <p>The product has two capabilities. <b>Part 2 — source verification</b> traces an image, video, or claim back to its earliest known appearance and cross-references it against published fact-checks. <b>Part 1 — authenticity signals</b> surfaces evidence of AI generation or manipulation (metadata, compression artifacts, pretrained classifiers, VLM-flagged anomalies) without issuing a verdict.</p>
+      <p>Part 2 is buildable now on existing APIs and open tooling. A durable, defensible version of Part 1 requires a proprietary training corpus we don't have yet — so this roadmap earns that corpus through paying enterprise usage before funding custom-model R&amp;D, rather than building Part 1 first on spec. The executable path starts narrower than the full vision on two axes at once: one media type (image), one customer vertical — not because the rest is wrong, but because that's the smallest thing that produces a real customer and real data.</p>
+    </section>
+
+    <section id="problem">
+      <h2>Problem statement</h2>
+      <p>Five reference cases anchor scope, urgency, and the latency bar this product has to clear:</p>
+      <ul class="cases">
+        <li><span class="where mono">Hong Kong<br>2024</span><span class="what"><b>Arup engineering firm</b> — a finance employee wired $25M after a video call where every other participant was a deepfake. Validates that enterprise fraud budget already exists and is willing to pay.</span></li>
+        <li><span class="where mono">India<br>2018</span><span class="what"><b>WhatsApp mob killings</b> — fabricated child-abduction videos triggered real lynchings across multiple states. Validates public-safety urgency in high-forward-volume markets.</span></li>
+        <li><span class="where mono">Slovakia<br>2023</span><span class="what"><b>Pre-election deepfake audio</b> — released 48 hours before a national vote, spreading faster than it could be verified. Sets the latency bar: a multi-API deep check is not fast enough for the window that matters most.</span></li>
+        <li><span class="where mono">Global<br>2023</span><span class="what"><b>"Pope in the puffer jacket," fabricated Trump arrest images</b> — both debunked only by ad hoc human skepticism and manual reverse search, no product involved. The gap is often habit and distribution, not detection capability.</span></li>
+        <li><span class="where mono">Israel–Gaza,<br>India–Pakistan</span><span class="what"><b>Conflict-cycle misinformation</b> — dominant pattern is old media recirculated as new. Squarely a Part 2 problem (source and date), not a Part 1 one (pixel authenticity).</span></li>
+      </ul>
+    </section>
+
+    <section id="market">
+      <h2>Market landscape</h2>
+      <p>The pipeline itself (reverse search + crawl + fact-check API) is assemblable by any competent team in weeks. Defensibility has to come from vertical focus, accumulated verdict data, or distribution — not the pipeline.</p>
+      <div class="req-wrap">
+      <table class="data">
+        <tr><th>Player</th><th>Segment</th><th>What they own</th><th>Gap we use</th></tr>
+        <tr><td>Hive&nbsp;AI</td><td>Platform API (B2B)</td><td>AI-content detection API, integrated into Reddit and others</td><td>Broad detector, not provenance-first, no vertical fraud focus</td></tr>
+        <tr><td>Reality&nbsp;Defender</td><td>Enterprise fraud</td><td>Funded deepfake detection, government-adjacent</td><td>Enterprise pricing leaves SMB / mid-market open</td></tr>
+        <tr><td>Sensity&nbsp;AI</td><td>Enterprise KYC / fraud</td><td>Deepfake + fraud detection</td><td>Same pricing gap as above</td></tr>
+        <tr><td>InVID / WeVerify</td><td>Free, journalist / OSINT</td><td>Reverse image &amp; video search, keyframe tooling — EU-funded</td><td>Free and grant-funded, hard to out-price; avoid competing here directly</td></tr>
+        <tr><td>Google (About This Image, SynthID)</td><td>Platform-native</td><td>Provenance labeling built into Search and Gemini</td><td>Absorbs the generic consumer case long-term — reinforces not building consumer-first</td></tr>
+        <tr><td>C2PA / CAI</td><td>Standard, not product</td><td>Cryptographic provenance standard (Adobe, Microsoft, BBC, OpenAI)</td><td>An input signal for us if adopted widely, not a competitor</td></tr>
+      </table>
+      </div>
+    </section>
+
+    <section id="product">
+      <h2>Product overview</h2>
+      <h3>Core primitives</h3>
+      <p>Three primitives cover all media types — video is not a separate system, it reduces to the image primitive plus extraction:</p>
+      <div class="req-wrap">
+      <table class="data">
+        <tr><th>Primitive</th><th>Does</th></tr>
+        <tr><td class="mono">check_claim(text)</td><td>Fact-check API match + web search for articles discussing the claim</td></tr>
+        <tr><td class="mono">check_image(image)</td><td>Hash/cache → reverse image search → source extraction → signals panel</td></tr>
+        <tr><td class="mono">crawl(url)</td><td>Fetch a candidate source page, extract clean text + publish metadata</td></tr>
+        <tr><td class="mono">check_video(video)</td><td>= keyframe extraction → <span class="mono">check_image()</span> per frame + OCR/ASR caption → <span class="mono">check_claim()</span></td></tr>
+      </table>
+      </div>
+    </section>
+
+    <section id="sequencing">
+      <h2>Segmentation &amp; GTM sequencing</h2>
+      <p><b>Enterprise fraud / trust &amp; safety first</b> — fastest sales cycle, proven willingness to pay, cloud-API architecture fits without modification. <b>Government second</b> — needs sovereign/on-prem deployment and carries real political exposure (censorship framing); enter only once enterprise references exist to de-risk the sale. <b>Consumer is a perpetual data and brand channel</b>, never the primary revenue line — free incumbents (InVID) and platform-native features (Google) make it a losing lane to lead with.</p>
+    </section>
+
+    <section id="roadmap">
+      <h2>Phased roadmap</h2>
+
+      <article class="phase">
+        <div class="phase-head"><h3>Phase 0 — MVP</h3><span class="status now">Now · bootstrapped</span></div>
+        <p class="objective">Ship the narrowest provable slice of Part 2, plus a basic Part 1 signals panel, for one image-dominant vertical — cheaply enough to run on founder or angel capital.</p>
+
+        <div class="scope-grid">
+          <div class="scope-col in">
+            <div class="lbl">In scope</div>
+            <ul>
+              <li>Image-only pipeline (no video, no text-claim yet)</li>
+              <li>Hash / cache layer before any paid API call</li>
+              <li>Reverse image search: Vision Web Detection + Bing Visual Search</li>
+              <li>Crawl4AI source-page extraction</li>
+              <li>Provenance timeline output</li>
+              <li>Part 1 signals panel: EXIF, ELA, one licensed HF classifier, OpenRouter VLM anomaly pass</li>
+            </ul>
+          </div>
+          <div class="scope-col out">
+            <div class="lbl">Out of scope</div>
+            <ul>
+              <li>Video pipeline</li>
+              <li>Text-claim / Fact Check API integration</li>
+              <li>Custom-trained detection models</li>
+              <li>Sovereign / on-prem deployment</li>
+              <li>Aggregate score or verdict of any kind</li>
+              <li>Consumer-facing UI polish beyond functional</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>Functional requirements</h3>
+        <div class="req-wrap">
+        <table class="req">
+          <tr><th>ID</th><th>Requirement</th></tr>
+          <tr><td class="id">FR-1</td><td>Perceptual-hash every uploaded image before any paid API call; skip the pipeline on a cache hit.</td></tr>
+          <tr><td class="id">FR-2</td><td>Query Vision Web Detection and Bing Visual Search; merge and de-duplicate candidate source URLs.</td></tr>
+          <tr><td class="id">FR-3</td><td>Crawl4AI-fetch each candidate URL; extract publish date, canonical URL, JSON-LD article metadata.</td></tr>
+          <tr><td class="id">FR-4</td><td>Render a provenance timeline: earliest known appearance, subsequent reposts, source notes.</td></tr>
+          <tr><td class="id">FR-5</td><td>EXIF extraction and sanity flags — software tag, missing camera fields, timestamp inconsistency.</td></tr>
+          <tr><td class="id">FR-6</td><td>ELA heat-map generation for localized edit/splice detection.</td></tr>
+          <tr><td class="id">FR-7</td><td>Run one license-checked pretrained HF classifier; store raw score plus score against our own eval set.</td></tr>
+          <tr><td class="id">FR-8</td><td>VLM anomaly pass via OpenRouter — itemized findings, never a verdict.</td></tr>
+          <tr><td class="id">FR-9</td><td>Combine FR-5 through FR-8 into one signals panel; no aggregate score surfaced to the user.</td></tr>
+        </table>
+        </div>
+
+        <h3>Non-functional requirements</h3>
+        <div class="req-wrap">
+        <table class="req">
+          <tr><th>ID</th><th>Requirement</th></tr>
+          <tr><td class="id">NFR-1</td><td>Per-check cost tracked with a dashboard/alert — Vision, Bing, and VLM calls are metered.</td></tr>
+          <tr><td class="id">NFR-2</td><td>Latency — cache-hit path under 2s; full pipeline path targeted under 30s.</td></tr>
+          <tr><td class="id">NFR-3</td><td>Every third-party model checked for commercial-use license before integration.</td></tr>
+          <tr><td class="id">NFR-4</td><td>Uploaded media not retained beyond the check unless the design partner explicitly consents.</td></tr>
+        </table>
+        </div>
+
+        <div class="risk-note"><span class="lbl">Key risk</span>Wedge vertical is undecided — see Open Questions. Requirements above are written to hold for either candidate, but claim schema and integration point diverge past Phase 0.</div>
+
+        <div class="meta-row">
+          <div class="meta-block"><div class="lbl">Success / exit criteria</div><p>Pipeline runs end-to-end on real cases from the chosen vertical; 3–5 test cases legible to a non-technical reviewer; ready to hand to the first design partner.</p></div>
+          <div class="meta-block"><div class="lbl">Duration &amp; dependencies</div><p>Weeks, not months — integration work, no novel research. Needs: Vision API key, Bing Visual Search key, OpenRouter account, self-hosted Crawl4AI, 1–2 license-verified HF classifiers.</p></div>
+        </div>
+      </article>
+
+      <article class="phase">
+        <div class="phase-head"><h3>Phase 0.5 — Design partners</h3><span class="status next">Next</span></div>
+        <p class="objective">Prove the MVP against real cases with 5–10 unpaid or discounted design partners in the chosen vertical, in exchange for feedback and consented data.</p>
+        <div class="meta-row">
+          <div class="meta-block"><div class="lbl">Scope addition</div><p>FR-10 — lightweight feedback capture: partner marks a result useful or not, with a reason. Seeds the future training corpus.</p></div>
+          <div class="meta-block"><div class="lbl">Success criteria</div><p>2–3 quantified case studies (e.g. fraudulent claims or listings flagged, value at risk); provenance timeline usable without explanation.</p></div>
+        </div>
+        <div class="risk-note"><span class="lbl">Key risk</span>Design partners churn without a paid relationship; feedback volume too low to be meaningful.</div>
+        <div class="meta-block"><div class="lbl">Duration</div><p>4–8 weeks post-MVP.</p></div>
+      </article>
+
+      <article class="phase">
+        <div class="phase-head"><h3>Phase 1 — Paid conversion</h3><span class="status then">Then</span></div>
+        <p class="objective">Convert design partners to paying pilots; assemble a traction narrative built on real numbers, not projections.</p>
+        <div class="meta-row">
+          <div class="meta-block"><div class="lbl">Scope addition</div><p>Billing/metering, basic multi-tenant access control, SLA-lite support.</p></div>
+          <div class="meta-block"><div class="lbl">Success criteria</div><p>First paying contracts signed; 2–3 case studies with real figures; fundraise narrative grounded in Phase 0.5 data.</p></div>
+        </div>
+        <div class="risk-note"><span class="lbl">Key risk</span>Pricing model unproven; risk of drifting into InVID's free journalist-tooling lane if the wedge choice skews that direction.</div>
+        <div class="meta-block"><div class="lbl">Duration</div><p>2–3 months.</p></div>
+      </article>
+
+      <article class="phase">
+        <div class="phase-head"><h3>Phase 2 — Funded expansion</h3><span class="status funded">Funded</span></div>
+        <p class="objective">Deploy raised capital into the Part 1 R&amp;D and coverage expansion deferred throughout this document.</p>
+        <div class="meta-row">
+          <div class="meta-block"><div class="lbl">Scope addition</div><p>Video pipeline (reusing check_image on keyframes), text-claim pipeline (Fact Check Tools API), sovereign/on-prem deployment track, custom model training on the Phase 0.5–1 corpus, first government conversations using enterprise references.</p></div>
+          <div class="meta-block"><div class="lbl">Success criteria</div><p>Video/text parity with image pipeline; first government pilot or RFP response; measurable accuracy gain of the custom Part 1 model over the borrowed HF baseline.</p></div>
+        </div>
+        <div class="risk-note"><span class="lbl">Key risk</span>Government political exposure; sovereign-deployment architecture diverges from the cloud-API MVP; detection accuracy is never fully "solved" — communicate honestly, not as a solved problem.</div>
+        <div class="meta-block"><div class="lbl">Duration</div><p>6–12 months.</p></div>
+      </article>
+
+      <article class="phase">
+        <div class="phase-head"><h3>Phase 3 — Consumer channel</h3><span class="status ongoing">Ongoing · low priority</span></div>
+        <p class="objective">Maintain a consumer touchpoint — browser extension or messaging bot — as a brand and data-acquisition channel, not a revenue line.</p>
+        <div class="meta-row">
+          <div class="meta-block"><div class="lbl">Success criteria</div><p>Steady corpus contribution and brand awareness — explicitly not judged on standalone revenue.</p></div>
+          <div class="meta-block"><div class="lbl">Duration</div><p>Ongoing background thread from Phase 1 onward.</p></div>
+        </div>
+        <div class="risk-note"><span class="lbl">Key risk</span>Temptation to over-invest here because it's the most legible "product" to outsiders. Resist — market analysis says this lane is structurally weak.</div>
+      </article>
+    </section>
+
+    <section id="cross-phase">
+      <h2>Cross-phase requirements</h2>
+      <ul>
+        <li><b>Data retention</b> — media and derived signals are not retained past the check unless the customer or design partner has consented; consented data is the only source for the future training corpus.</li>
+        <li><b>Model licensing audit trail</b> — every third-party model (HF or otherwise) logged with license type and commercial-use approval before it ships in any check.</li>
+        <li><b>Cost and caching controls</b> — hash-based dedup is mandatory in front of every metered API; per-check cost visible and capped from Phase 0 onward.</li>
+        <li><b>Crawl scope legal review</b> — Crawl4AI targets reviewed against each site's ToS; extraction is for internal matching/analysis, never republication of scraped content.</li>
+      </ul>
+    </section>
+
+    <section id="risks">
+      <h2>Risk register</h2>
+      <div class="req-wrap">
+      <table class="data">
+        <tr><th>Risk</th><th>Phase</th><th>Mitigation</th></tr>
+        <tr><td>Part 1 accuracy overclaimed to investors or buyers</td><td class="num">All</td><td>Publish only self-benchmarked numbers; never cite a vendor's model-card claim as our own</td></tr>
+        <tr><td>Government political / censorship exposure</td><td class="num">2+</td><td>Enter only with enterprise references in hand; frame as evidentiary tooling, not misinformation policing</td></tr>
+        <tr><td>Free incumbent (InVID) undercuts journalist-facing pricing</td><td class="num">0.5–1</td><td>Stay in paid enterprise verticals — fraud, trust &amp; safety — not journalist tooling</td></tr>
+        <tr><td>API cost blowout at viral volume</td><td class="num">0, 3</td><td>Hash/cache before every paid call; cost caps and alerts (NFR-1)</td></tr>
+        <tr><td>Pretrained model license violation</td><td class="num">0</td><td>Mandatory license check before integration (NFR-3)</td></tr>
+        <tr><td>Sovereign-deployment need conflicts with cloud-API architecture</td><td class="num">2</td><td>Treat as a distinct deployment track, not a retrofit of the MVP</td></tr>
+        <tr><td>Detection arms race makes any point-in-time accuracy stale</td><td class="num">Ongoing</td><td>Communicate signals, not verdicts; re-benchmark on a fixed cadence</td></tr>
+      </table>
+      </div>
+    </section>
+
+    <section id="metrics">
+      <h2>Metrics &amp; KPIs</h2>
+      <div class="req-wrap">
+      <table class="data">
+        <tr><th>Phase</th><th>Primary metric</th><th>Target</th></tr>
+        <tr><td class="num">0</td><td>Pipeline completes end-to-end on real cases</td><td>100% of test set</td></tr>
+        <tr><td class="num">0.5</td><td>Active design partners</td><td>5–10</td></tr>
+        <tr><td class="num">0.5</td><td>Case studies with quantified impact</td><td>2–3</td></tr>
+        <tr><td class="num">1</td><td>Paying pilot contracts</td><td>First N signed</td></tr>
+        <tr><td class="num">2</td><td>Custom Part 1 model vs. borrowed baseline</td><td>Measurable accuracy gain on internal eval set</td></tr>
+        <tr><td class="num">3</td><td>Consumer corpus contribution</td><td>Steady, non-zero — not revenue-judged</td></tr>
+      </table>
+      </div>
+    </section>
+
+    <section id="open-questions">
+      <h2>Open questions</h2>
+      <ul>
+        <li><b>Wedge vertical</b> — insurance-claims fraud vs. marketplace/dating trust &amp; safety. Blocks final Phase 0 scoping: claim schema and integration point differ between the two.</li>
+        <li><b>Pricing model</b> for Phase 1 — per-check API pricing vs. seat/platform fee.</li>
+        <li><b>Which HF classifier(s)</b> to benchmark first, and against what internal eval set.</li>
+        <li><b>Build vs. buy</b> for the OCR/ASR needed for video captions in Phase 2.</li>
+      </ul>
+    </section>
+
+    <section id="glossary">
+      <h2>Glossary</h2>
+      <dl class="gloss">
+        <div><dt>C2PA / CAI</dt><dd>Coalition for Content Provenance and Authenticity / Content Authenticity Initiative — cryptographically signed manifest standard for media provenance.</dd></div>
+        <div><dt>ELA</dt><dd>Error Level Analysis — compression-artifact technique that flags localized image edits or splices; no ML required.</dd></div>
+        <div><dt>EXIF</dt><dd>Metadata embedded in image files — camera, software, timestamp — usually stripped on social re-upload.</dd></div>
+        <div><dt>pHash</dt><dd>Perceptual hash — a fingerprint for near-duplicate detection, used to cache repeat checks before paying for search APIs.</dd></div>
+        <div><dt>ClaimReview</dt><dd>Schema.org markup used by fact-checkers; what the Google Fact Check Tools API searches.</dd></div>
+        <div><dt>VLM</dt><dd>Vision-language model — used here for itemized anomaly explanations, not as a calibrated classifier.</dd></div>
+        <div><dt>Keyframe extraction</dt><dd>Scene-change-based sampling of representative video frames, reducing video to a set of images.</dd></div>
+      </dl>
+    </section>
+
+    <section id="appendix">
+      <h2>Technical appendix</h2>
+      <div class="req-wrap">
+      <table class="data">
+        <tr><th>Tool / API</th><th>Role</th><th>Notes</th></tr>
+        <tr><td>Google Cloud Vision — Web Detection</td><td>Reverse image search, discovery</td><td>Primary discovery source</td></tr>
+        <tr><td>Bing Visual Search (Azure)</td><td>Reverse image search, discovery</td><td>Secondary index, different coverage</td></tr>
+        <tr><td>Google Fact Check Tools API</td><td>ClaimReview search</td><td>Phase 2 — text-claim pipeline</td></tr>
+        <tr><td>Crawl4AI</td><td>Candidate URL → clean article + metadata</td><td>Self-hosted, Playwright-based</td></tr>
+        <tr><td>OpenRouter</td><td>Multi-provider VLM routing</td><td>Cost-effective, swappable vision model access</td></tr>
+        <tr><td>Hugging Face pretrained classifiers</td><td>Part 1 baseline signal</td><td>License check mandatory before use</td></tr>
+        <tr><td>ELA implementation</td><td>Local edit/splice detection</td><td>Classic re-compression technique, no ML</td></tr>
+      </table>
+      </div>
+    </section>
+
+    <footer>
+      <span>Media Authenticity Platform — PRD v0.1</span>
+      <span>Draft — Phase 0 scoping pending wedge decision</span>
+    </footer>
+  </main>
+</div>

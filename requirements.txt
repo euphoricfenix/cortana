@@ -1,0 +1,6 @@
+pillow
+imagehash
+requests
+beautifulsoup4
+google-cloud-vision
+crawl4ai
